@@ -58,18 +58,39 @@ void choice_sorting(int* arr, int n) {
     for (int i = 0; i < n; i++)
         a[i] = arr[i];
     
-    for (int i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++) {
         min = i;
         for (int j = i + 1; j < n; j++)
             min = (a[j] < a[min]) ? j : min;
-        if (i != min)
-        {
+        if (i != min) {
             swap(a[i], a[min]);
         }
     }
 
     cout << "Результат сортировки выбором: ";
+    for (int i = 0; i < n; i++)
+        cout << a[i] << " ";
+    cout << endl;
+}
+
+void Shell_sort(int* arr, int n) {
+    int d = n / 2;
+    int* a = new int[n];
+    for (int i = 0; i < n; i++)
+        a[i] = arr[i];
+
+    while (d > 0) {
+        for (int i = 0; i < n - d; i++) {
+            int j = i;
+            while (j >= 0 && a[j] > a[j + d]) {
+                swap(a[j], a[j + d]);
+                j--;
+            }
+        }
+        d = d / 2;
+    }
+
+    cout << "Результат сортировки Шелла: ";
     for (int i = 0; i < n; i++)
         cout << a[i] << " ";
     cout << endl;
@@ -93,4 +114,5 @@ int main()
     bubble_sorting(mas, n);
     insert_sorting(mas, n);
     choice_sorting(mas, n);
+    Shell_sort(mas, n);
 }
