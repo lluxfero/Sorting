@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <clocale>
 #include <Windows.h>
 using namespace std;
@@ -134,6 +134,46 @@ void pyramid_sorting(int *arr, int n)
     cout << endl;
 }
 
+void qsort(int* arr, int n) { //рекурсивная функция для быстрой сортировки
+    int i = 0;
+    int j = n - 1;
+
+    int mid = arr[n / 2];
+
+    do {
+        while (arr[i] < mid) {
+            i++;
+        }
+        while (arr[j] > mid) {
+            j--;
+        }
+        if (i <= j) {
+            int tmp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = tmp;
+
+            i++;
+            j--;
+        }
+    } while (i <= j);
+
+    if (j > 0) qsort(arr, j + 1);
+    if (i < n) qsort(&arr[i], n - i);
+}
+
+void quick_sorting(int* arr, int n) {
+    int* a = new int[n];
+    for (int i = 0; i < n; i++)
+        a[i] = arr[i];
+
+    qsort(a, n);
+
+    cout << "Результат быстрой сортировки: ";
+    for (int i = 0; i < n; i++)
+        cout << a[i] << " ";
+    cout << endl;
+}
+
 int main()
 {
     setlocale(LC_ALL, "rus");
@@ -154,4 +194,5 @@ int main()
     choice_sorting(mas, n);
     Shell_sorting(mas, n);
     pyramid_sorting(mas, n);
+    quick_sorting(mas, n);
 }
